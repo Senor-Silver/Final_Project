@@ -39,28 +39,39 @@ class CandidateList
 {
 public:
 	// Default constructor
+	CandidateList();
 
 	// addCandidate
+	void addCandidate(CandidateType& candidate);
 
 	// getWinner
+	CandidateType& getWinner() const;
 
 	// isEmpty
 	// searchCandidate
+	bool isEmpty();
+	bool searchCandidate(int ID);
 
 	// printCandidateName
 	// printAllCandidates
 	// printKingdomVotes
 	// printCandidateTotalVotes
 	// printFinalResults
-
+	void printCandidateName() const;
+	void printAllCandidates() const;
+	void printKingdomVotes() const;
+	void printCandidateTotalVotes() const;
+	void printFinalResults() const;
 	
 	// clearList
-	// Destructor
+	void clearList();
 
+	// Destructor
+	~CandidateList();
 
 private:
 	// searchCandidate
-
+	bool searchCandidate(int ID, Node* ptr);
 	
 	Node *first; 	// pointer to the first candidate in the list
 	Node *last;		// pointer to last candidate in the list

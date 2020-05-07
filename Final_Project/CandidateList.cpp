@@ -15,5 +15,73 @@ using namespace std;
 
 // Function declarations
 // Same order as in class definition
+CandidateList::CandidateList()
+{
+	first = last = nullptr;
+	count = 0;
+}
 
+void CandidateList::addCandidate(CandidateType& candidate)
+{
 
+}
+
+CandidateType& CandidateList::getWinner() const
+{
+
+}
+
+bool CandidateList::isEmpty()
+{
+	// Use ternary operator...
+	return false;
+}
+
+// Public function
+bool CandidateList::searchCandidate(int ID)
+{
+	Node* ptrToCandidate = nullptr;
+	CandidateList::searchCandidate(ID, ptrToCandidate);
+}
+
+void CandidateList::printCandidateName() const
+{
+
+}
+
+void CandidateList::printAllCandidates() const
+{
+
+}
+
+void CandidateList::printKingdomVotes() const
+{
+
+}
+
+void CandidateList::printCandidateTotalVotes() const
+{
+
+}
+
+void CandidateList::printFinalResults() const
+{
+
+}
+
+// Destructor Methods
+void CandidateList::clearList()
+{
+	// Delete all dynamic data
+	// Set all member variables to default
+}
+
+CandidateList::~CandidateList()
+{
+	clearList();
+}
+// Overloaded Private function
+bool CandidateList::searchCandidate(int ID, Node* ptr)
+{
+	//For Loop to traverse List
+}
