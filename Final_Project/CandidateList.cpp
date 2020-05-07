@@ -26,7 +26,7 @@ void CandidateList::addCandidate(CandidateType& candidate)
 
 }
 
-CandidateType& CandidateList::getWinner() const
+int CandidateList::getWinner() const
 {
 
 }
@@ -34,10 +34,10 @@ CandidateType& CandidateList::getWinner() const
 bool CandidateList::isEmpty()
 {
 	// Use ternary operator...
-	return false;
+	return count == 0 ? true : false;
 }
 
-// Public function
+// Public Search function
 bool CandidateList::searchCandidate(int ID)
 {
 	Node* ptrToCandidate = nullptr;
@@ -80,8 +80,10 @@ CandidateList::~CandidateList()
 {
 	clearList();
 }
-// Overloaded Private function
+
+// Overloaded Private Search function
 bool CandidateList::searchCandidate(int ID, Node* ptr)
 {
 	//For Loop to traverse List
+	return true;
 }

@@ -45,7 +45,7 @@ public:
 	void addCandidate(CandidateType& candidate);
 
 	// getWinner
-	CandidateType& getWinner() const;
+	int getWinner() const;
 
 	// isEmpty
 	// searchCandidate
