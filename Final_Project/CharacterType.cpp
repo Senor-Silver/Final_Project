@@ -1,5 +1,5 @@
 /*
-		TeamName
+		OOPS
 		 Iacob, Marius (TTh 6:30)
 		 Catillio, Edgar (TTh 6:30)
 
