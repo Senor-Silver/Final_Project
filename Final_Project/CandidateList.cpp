@@ -25,7 +25,7 @@ void CandidateList::addCandidate(CandidateType& candidate)
 {
 	// If the list is empty...
 	// Assign 'candidate' to --first & --last
-	if (this->isEmpty())
+	if (this->isEmpty() /* || !count*/)
 		first = last = new Node(candidate, nullptr);
 	// Else, assing 'candidate' to --last->--link
 	else
@@ -50,31 +50,24 @@ int CandidateList::getWinner() const
 	// Use a Node*, 'temp' to traverse list
 	// Keep track of winner with 
 	Node* temp = first;
-	int victorOfVotes = first->getCandidate().getID();
-
-	/*
-	// Do...
-	do
-	{
-
-		
-		temp = temp->getLink();              // Proceed to next Node
-	} while (temp->getLink() != nullptr // || temp != last);    // Continue loop if not at last
-	*/
+	int winnerID = first->getCandidate().getID();
+	int winnerTtlVotes = first->getCandidate().getTotalVotes();
 	
 	// WHILE the next --link does not equal nullptr
 	while (temp->getLink() != nullptr)
 	{
-		// Save # of Votes into var, move 'temp' to next --link
-		int tempVotes = temp->getCandidate().getTotalVotes();
+		// Update 'temp' to next --link
 		temp = temp->getLink();
 
-		// Compare votes and assign new Victor
-		if (tempVotes < temp->getCandidate().getTotalVotes())
-			victorOfVotes = temp->getCandidate().getID();
+		// Compare Total Votes of Candidates
+		if (winnerTtlVotes < temp->getCandidate().getTotalVotes())
+		{
+			winnerID = temp->getCandidate().getID();
+			winnerTtlVotes = temp->getCandidate().getTotalVotes();
+		}
 	}
 	// Return ID of Winner
-	return victorOfVotes;
+	return winnerID;
 }
 
 bool CandidateList::isEmpty()
@@ -87,7 +80,7 @@ bool CandidateList::isEmpty()
 bool CandidateList::searchCandidate(int ID)
 {
 	Node* ptrToCandidate = nullptr;
-	CandidateList::searchCandidate(ID, ptrToCandidate);
+	return CandidateList::searchCandidate(ID, ptrToCandidate);
 }
 
 void CandidateList::printCandidateName() const
