@@ -79,8 +79,8 @@ bool CandidateList::isEmpty()
 // Public Search function
 bool CandidateList::searchCandidate(int ID)
 {
-	Node* ptrToCandidate = nullptr;
-	return CandidateList::searchCandidate(ID, ptrToCandidate);
+	Node* ptr2Candidate = nullptr;
+	return CandidateList::searchCandidate(ID, ptr2Candidate);
 }
 
 void CandidateList::printCandidateName(int ID) const
@@ -121,8 +121,24 @@ CandidateList::~CandidateList()
 }
 
 // Overloaded Private Search function
-bool CandidateList::searchCandidate(int ID, Node*& ptr)
+bool CandidateList::searchCandidate(int ID, Node*& ptrToCandidate)
 {
-	//For Loop to traverse List
-	return true;
+	if (this->isEmpty())
+		cerr << "=> List is empty. " << endl;
+	
+	bool found = false;
+	Node* temp = first;
+
+	while (!found)
+	{
+		if (temp->getCandidate().getID() == ID)
+		{
+			ptrToCandidate = temp;
+			found = true;
+		}
+		else
+			temp = temp->getLink();
+	}
+
+	return found;
 }
