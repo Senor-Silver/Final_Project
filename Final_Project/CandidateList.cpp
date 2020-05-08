@@ -23,12 +23,58 @@ CandidateList::CandidateList()
 
 void CandidateList::addCandidate(CandidateType& candidate)
 {
+	// If the list is empty...
+	// Assign 'candidate' to --first & --last
+	if (this->isEmpty())
+		first = last = new Node(candidate, nullptr);
+	// Else, assing 'candidate' to --last->--link
+	else
+	{
+		last->setLink(new Node(candidate, nullptr));
+		last = last->getLink();
+	}
 
+	count++;
 }
 
 int CandidateList::getWinner() const
 {
+	// If --count is 0...
+	if (!count)
+	{
+		// List is empty, output cerr
+		cerr << "=> List is empty. " << endl;
+		return 0;
+	}
+		
+	// Use a Node*, 'temp' to traverse list
+	// Keep track of winner with 
+	Node* temp = first;
+	int victorOfVotes = first->getCandidate().getID();
 
+	/*
+	// Do...
+	do
+	{
+
+		
+		temp = temp->getLink();              // Proceed to next Node
+	} while (temp->getLink() != nullptr // || temp != last);    // Continue loop if not at last
+	*/
+	
+	// WHILE the next --link does not equal nullptr
+	while (temp->getLink() != nullptr)
+	{
+		// Save # of Votes into var, move 'temp' to next --link
+		int tempVotes = temp->getCandidate().getTotalVotes();
+		temp = temp->getLink();
+
+		// Compare votes and assign new Victor
+		if (tempVotes < temp->getCandidate().getTotalVotes())
+			victorOfVotes = temp->getCandidate().getID();
+	}
+	// Return ID of Winner
+	return victorOfVotes;
 }
 
 bool CandidateList::isEmpty()
