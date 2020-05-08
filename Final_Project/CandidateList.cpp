@@ -121,7 +121,7 @@ CandidateList::~CandidateList()
 }
 
 // Overloaded Private Search function
-bool CandidateList::searchCandidate(int ID, Node* ptr)
+bool CandidateList::searchCandidate(int ID, Node*& ptr)
 {
 	//For Loop to traverse List
 	return true;

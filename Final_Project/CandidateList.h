@@ -71,7 +71,7 @@ public:
 
 private:
 	// searchCandidate
-	bool searchCandidate(int ID, Node* ptr);
+	bool searchCandidate(int ID, Node*& ptr);
 	
 	Node *first; 	// pointer to the first candidate in the list
 	Node *last;		// pointer to last candidate in the list
