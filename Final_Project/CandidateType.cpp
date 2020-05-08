@@ -88,6 +88,7 @@ void CandidateType::printCandidateInfo() const
 	CharacterType::printID();
 	cout << "-";
 	CharacterType::printName();
+	cout << endl;
 }
 
 void CandidateType::printCandidateTotalVotes() const

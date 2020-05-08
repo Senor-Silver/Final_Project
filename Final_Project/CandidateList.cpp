@@ -83,14 +83,26 @@ bool CandidateList::searchCandidate(int ID)
 	return CandidateList::searchCandidate(ID, ptr2Candidate);
 }
 
-void CandidateList::printCandidateName(int ID) const
+void CandidateList::printCandidateName(int ID)
 {
-
+	Node* ptr2Candidate = nullptr;
+	if (CandidateList::searchCandidate(ID, ptr2Candidate))
+	{
+		ptr2Candidate->getCandidate().printName();
+	}
 }
 
-void CandidateList::printAllCandidates() const
+void CandidateList::printAllCandidates()
 {
+	if (this->isEmpty())
+		cerr << "List is empty. " << endl;
 
+	Node* temp = first;
+
+	while (temp->getLink() != nullptr)
+	{
+		temp->getCandidate().printCandidateInfo();
+	}
 }
 
 void CandidateList::printKingdomVotes(int ID, int kingdom) const
