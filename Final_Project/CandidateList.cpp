@@ -83,7 +83,7 @@ bool CandidateList::searchCandidate(int ID)
 	return CandidateList::searchCandidate(ID, ptrToCandidate);
 }
 
-void CandidateList::printCandidateName() const
+void CandidateList::printCandidateName(int ID) const
 {
 
 }
@@ -93,12 +93,12 @@ void CandidateList::printAllCandidates() const
 
 }
 
-void CandidateList::printKingdomVotes() const
+void CandidateList::printKingdomVotes(int ID, int kingdom) const
 {
 
 }
 
-void CandidateList::printCandidateTotalVotes() const
+void CandidateList::printCandidateTotalVotes(int ID) const
 {
 
 }
