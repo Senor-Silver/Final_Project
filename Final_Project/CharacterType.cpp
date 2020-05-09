@@ -23,7 +23,8 @@ CharacterType::CharacterType()
 }
 
 // Overloaded constructor
-CharacterType::CharacterType(string lastN, string firstN, int ID)
+CharacterType::CharacterType(const string& lastN, 
+							 const string& firstN, int ID)
 {
 	lastName = lastN;
 	firstName = firstN;
@@ -31,7 +32,8 @@ CharacterType::CharacterType(string lastN, string firstN, int ID)
 }
 
 // setCharacterInfo Function
-void CharacterType::setCharacterInfo(string lName, string fName, int ID)
+void CharacterType::setCharacterInfo(const string& lName, 
+									 const string& fName, int ID)
 {
 	lastName = lName;
 	firstName = fName;

@@ -59,9 +59,9 @@ public:
 	// printFinalResults
 	void printCandidateName(int ID);
 	void printAllCandidates();
-	void printKingdomVotes(int ID, int kingdom) const;
-	void printCandidateTotalVotes(int ID) const;
-	void printFinalResults() const;
+	void printKingdomVotes(int ID, int kingdom);
+	void printCandidateTotalVotes(int ID);
+	void printFinalResults();
 	
 	// clearList
 	void clearList();

@@ -102,20 +102,29 @@ void CandidateList::printAllCandidates()
 	while (temp->getLink() != nullptr)
 	{
 		temp->getCandidate().printCandidateInfo();
+		temp = temp->getLink();
 	}
 }
 
-void CandidateList::printKingdomVotes(int ID, int kingdom) const
+void CandidateList::printKingdomVotes(int ID, int kingdom)
+{
+	Node* ptr2Candidate = nullptr;
+	if (CandidateList::searchCandidate(ID, ptr2Candidate))
+	{
+		// Format output here
+		cout << "\t*" << right << setw(3)
+			<< ptr2Candidate->getCandidate().getVotesByKingdom(kingdom)
+			<< "( => )" << KINGDOMS[kingdom] << "\n";
+	}
+		
+}
+
+void CandidateList::printCandidateTotalVotes(int ID) 
 {
 
 }
 
-void CandidateList::printCandidateTotalVotes(int ID) const
-{
-
-}
-
-void CandidateList::printFinalResults() const
+void CandidateList::printFinalResults()
 {
 
 }
