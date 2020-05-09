@@ -150,7 +150,7 @@ bool CandidateList::searchCandidate(int ID, Node*& ptrToCandidate)
 	bool found = false;
 	Node* temp = first;
 
-	while (!found)
+	while (!found && (temp->getLink() != nullptr))
 	{
 		if (temp->getCandidate().getID() == ID)
 		{
@@ -160,6 +160,9 @@ bool CandidateList::searchCandidate(int ID, Node*& ptrToCandidate)
 		else
 			temp = temp->getLink();
 	}
+
+	if (!found)
+		cerr << "=> ID not in the list.";
 
 	return found;
 }
