@@ -10,7 +10,8 @@
 */
 
 #include "CandidateList.h"
-
+#include <utility>
+#include <map>
 using namespace std;
 
 // Function declarations
@@ -121,12 +122,55 @@ void CandidateList::printKingdomVotes(int ID, int kingdom)
 
 void CandidateList::printCandidateTotalVotes(int ID) 
 {
-
+	Node* ptr2Candidate = nullptr;
+	if (CandidateList::searchCandidate(ID, ptr2Candidate))
+	{
+		cout << "\t=> Total votes: "
+		<< ptr2Candidate->getCandidate().getTotalVotes();
+	}
 }
 
 void CandidateList::printFinalResults()
 {
+	// Create a Map containing <--totalVotes, --
+	// Map has a nested Pair for ease of access to Name
+	map<int, pair<string, string>> candMap;
+	Node* temp = first;
 
+	while (temp != nullptr)
+	{
+		// Creation of Map to gather info for output in Order
+		// Will have to create a reverseIterator() 
+		candMap.insert(make_pair(temp->getCandidate().getTotalVotes(),
+					make_pair(temp->getCandidate().getLastName(),
+						      temp->getCandidate().getFirstName())));
+
+		// FOR loop to access Name and TtlVotes
+		for (auto tableInfo : candMap)
+		{
+			cout << tableInfo.second.first << ", " << tableInfo.second.second
+				<< "----" << tableInfo.first << "\n";
+		}
+
+		temp = temp->getLink();
+	}
+
+	// Print Top of Table Before Results
+	cout << right << setw(18) << setfill('*') << " FINAL"
+		<< left << setw(21) << setfill('*') << " RESULTS \n\n";
+
+	cout << left << setw(15) << setfill(' ') << "LAST"
+		<< setw(10) << "FIRST"
+		<< setw(5) << "TOTAL"
+		<< right << setw(8) << "POS\n";
+
+	cout << left << setw(15) << "NAME"
+		<< setw(10) << "NAME"
+		<< setw(5) << "VOTES"
+		<< right << setw(8) << "#\n"
+		<< setw(39) << setfill('_') << "_\n\n";
+
+	// For Loop to print from Winner to Last with iomanipS
 }
 
 // Destructor Methods
@@ -134,6 +178,16 @@ void CandidateList::clearList()
 {
 	// Delete all dynamic data
 	// Set all member variables to default
+	Node* temp = first;
+
+	while (first != nullptr)
+	{
+		first = first->getLink();
+		delete temp;
+		temp = first;
+	}
+
+	count = 0;
 }
 
 CandidateList::~CandidateList()
