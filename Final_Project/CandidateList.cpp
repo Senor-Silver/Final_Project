@@ -113,7 +113,7 @@ void CandidateList::printKingdomVotes(int ID, int kingdom)
 	if (CandidateList::searchCandidate(ID, ptr2Candidate))
 	{
 		// Format output here
-		cout << "\t*" << right << setw(3)
+		cout << "\t*" << right << setw(3) << setfill(' ')
 			<< ptr2Candidate->getCandidate().getVotesByKingdom(kingdom)
 			<< "( => )" << KINGDOMS[kingdom] << "\n";
 	}
@@ -145,21 +145,14 @@ void CandidateList::printFinalResults()
 					make_pair(temp->getCandidate().getLastName(),
 						      temp->getCandidate().getFirstName())));
 
-		// FOR loop to access Name and TtlVotes
-		for (auto tableInfo : candMap)
-		{
-			cout << tableInfo.second.first << ", " << tableInfo.second.second
-				<< "----" << tableInfo.first << "\n";
-		}
-
 		temp = temp->getLink();
 	}
 
 	// Print Top of Table Before Results
 	cout << right << setw(18) << setfill('*') << " FINAL"
-		<< left << setw(21) << setfill('*') << " RESULTS \n\n";
+		<< left << setw(21) << " RESULTS ";
 
-	cout << left << setw(15) << setfill(' ') << "LAST"
+	cout << left << setw(17) << setfill(' ') << "\n\nLAST"
 		<< setw(10) << "FIRST"
 		<< setw(5) << "TOTAL"
 		<< right << setw(8) << "POS\n";
@@ -168,9 +161,15 @@ void CandidateList::printFinalResults()
 		<< setw(10) << "NAME"
 		<< setw(5) << "VOTES"
 		<< right << setw(8) << "#\n"
-		<< setw(39) << setfill('_') << "_\n\n";
+		<< setw(41) << setfill('_') << "_\n\n";
 
 	// For Loop to print from Winner to Last with iomanipS
+	// FOR loop to access Name and TtlVotes
+	for (auto tableInfo : candMap)
+	{
+		cout << tableInfo.second.first << ", " << tableInfo.second.second
+			<< "----" << tableInfo.first << "\n";
+	}
 }
 
 // Destructor Methods
