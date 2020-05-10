@@ -142,8 +142,8 @@ void CandidateList::printFinalResults()
 		// Creation of Map to gather info for output in Order
 		// Will have to create a reverseIterator() 
 		candMap.insert(make_pair(temp->getCandidate().getTotalVotes(),
-					make_pair(temp->getCandidate().getLastName(),
-						      temp->getCandidate().getFirstName())));
+					make_pair(temp->getCandidate().getFirstName(),
+						      temp->getCandidate().getLastName())));
 
 		temp = temp->getLink();
 	}
@@ -167,6 +167,9 @@ void CandidateList::printFinalResults()
 	// FOR loop to access Name and TtlVotes
 	for (auto tableInfo : candMap)
 	{
+		// Put dashes in between every 5 Candidates
+		// if(count != 1 && !((count - 1) % 5))
+		// Use a int 'place' = 1 to use for POS
 		cout << tableInfo.second.first << ", " << tableInfo.second.second
 			<< "----" << tableInfo.first << "\n";
 	}
