@@ -165,13 +165,27 @@ void CandidateList::printFinalResults()
 
 	// For Loop to print from Winner to Last with iomanipS
 	// FOR loop to access Name and TtlVotes
-	for (auto tableInfo : candMap)
+
+	int candidatePOSition = 0;
+	map<int, pair<string, string>>::
+		const_reverse_iterator revIter = candMap.crbegin();
+
+	for (revIter; revIter != candMap.crend(); ++revIter)
 	{
+		candidatePOSition++;
+		
+		// Use reverseIterator here
+		// Use a int 'place' = 1 to use for POS
+		cout << left << setw(15) << setfill(' ') 
+			<< revIter->second.first << setw(12) 
+			<< revIter->second.second << setw(3) 
+			<< revIter->first << right << setw(7) 
+			<< candidatePOSition << "\n";
+
 		// Put dashes in between every 5 Candidates
 		// if(count != 1 && !((count - 1) % 5))
-		// Use a int 'place' = 1 to use for POS
-		cout << tableInfo.second.first << ", " << tableInfo.second.second
-			<< "----" << tableInfo.first << "\n";
+		if ((candidatePOSition > 4) && (!(candidatePOSition % 5)))
+			cout << right << setw(40) << setfill('-') << "-\n";
 	}
 }
 
