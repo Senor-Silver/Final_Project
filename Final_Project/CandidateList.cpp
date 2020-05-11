@@ -26,7 +26,7 @@ void CandidateList::addCandidate(CandidateType& candidate)
 {
 	// If the list is empty...
 	// Assign 'candidate' to --first & --last
-	if (this->isEmpty() /* || !count*/)
+	if (this->isEmpty())
 		first = last = new Node(candidate, nullptr);
 	// Else, assing 'candidate' to --last->--link
 	else
@@ -44,7 +44,7 @@ int CandidateList::getWinner() const
 	if (!count)
 	{
 		// List is empty, output cerr
-		cerr << "=> List is empty. " << endl;
+		cerr << "    => List is empty.\n" << endl;
 		return 0;
 	}
 		
@@ -105,7 +105,6 @@ void CandidateList::printAllCandidates()
 		temp->getCandidate().printID();
 		cout << " - " << temp->getCandidate().getLastName()
 			<< ", " << temp->getCandidate().getFirstName() << "\n";
-
 		temp = temp->getLink();
 	}
 }
@@ -135,7 +134,7 @@ void CandidateList::printCandidateTotalVotes(int ID)
 
 void CandidateList::printFinalResults()
 {
-	// Create a Map containing <--totalVotes, --
+	// Create a Map containing <--totalVotes, pair<--lastName, --firstName>>
 	// Map has a nested Pair for ease of access to Name
 	map<int, pair<string, string>> candMap;
 	Node* temp = first;
@@ -167,9 +166,6 @@ void CandidateList::printFinalResults()
 		<< right << setw(8) << "#\n"
 		<< setw(41) << setfill('_') << "_\n\n";
 
-	// For Loop to print from Winner to Last with iomanipS
-	// FOR loop to access Name and TtlVotes
-
 	int candidatePOSition = 0;
 	map<int, pair<string, string>>::
 		const_reverse_iterator revIter = candMap.crbegin();
@@ -179,7 +175,6 @@ void CandidateList::printFinalResults()
 		candidatePOSition++;
 		
 		// Use reverseIterator here
-		// Use a int 'place' = 1 to use for POS
 		cout << left << setw(15) << setfill(' ') 
 			<< revIter->second.first << setw(12) 
 			<< revIter->second.second << setw(3) 
@@ -187,7 +182,6 @@ void CandidateList::printFinalResults()
 			<< candidatePOSition << "\n";
 
 		// Put dashes in between every 5 Candidates
-		// if(count != 1 && !((count - 1) % 5))
 		if ((candidatePOSition > 4) && (!(candidatePOSition % 5)))
 			cout << right << setw(40) << setfill('-') << "-\n";
 	}
