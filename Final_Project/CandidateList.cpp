@@ -96,13 +96,16 @@ void CandidateList::printCandidateName(int ID)
 void CandidateList::printAllCandidates()
 {
 	if (this->isEmpty())
-		cerr << "List is empty. " << endl;
+		cerr << "List is empty.\n" << endl;
 
 	Node* temp = first;
 
-	while (temp->getLink() != nullptr)
+	while (temp != nullptr)
 	{
-		temp->getCandidate().printCandidateInfo();
+		temp->getCandidate().printID();
+		cout << " - " << temp->getCandidate().getLastName()
+			<< ", " << temp->getCandidate().getFirstName() << "\n";
+
 		temp = temp->getLink();
 	}
 }
@@ -113,8 +116,8 @@ void CandidateList::printKingdomVotes(int ID, int kingdom)
 	if (CandidateList::searchCandidate(ID, ptr2Candidate))
 	{
 		// Format output here
-		cout << "\t*" << right << setw(3) << setfill(' ')
-			<< ptr2Candidate->getCandidate().getVotesByKingdom(kingdom)
+		cout << right << setw(5) << setfill(' ') 
+			<< "*" << setw(3) << ptr2Candidate->getCandidate().getVotesByKingdom(kingdom)
 			<< "( => )" << KINGDOMS[kingdom] << "\n";
 	}
 		
@@ -125,8 +128,8 @@ void CandidateList::printCandidateTotalVotes(int ID)
 	Node* ptr2Candidate = nullptr;
 	if (CandidateList::searchCandidate(ID, ptr2Candidate))
 	{
-		cout << "\t=> Total votes: "
-		<< ptr2Candidate->getCandidate().getTotalVotes();
+		cout << "    => Total votes: "
+			<< ptr2Candidate->getCandidate().getTotalVotes() << endl;
 	}
 }
 
@@ -142,11 +145,12 @@ void CandidateList::printFinalResults()
 		// Creation of Map to gather info for output in Order
 		// Will have to create a reverseIterator() 
 		candMap.insert(make_pair(temp->getCandidate().getTotalVotes(),
-					make_pair(temp->getCandidate().getFirstName(),
-						      temp->getCandidate().getLastName())));
+					make_pair(temp->getCandidate().getLastName(),
+						      temp->getCandidate().getFirstName())));
 
 		temp = temp->getLink();
 	}
+	// Delete temp to free up space???
 
 	// Print Top of Table Before Results
 	cout << right << setw(18) << setfill('*') << " FINAL"
@@ -215,7 +219,7 @@ CandidateList::~CandidateList()
 bool CandidateList::searchCandidate(int ID, Node*& ptrToCandidate)
 {
 	if (this->isEmpty())
-		cerr << "=> List is empty. " << endl;
+		cerr << "    => List is empty.\n" << endl;
 	
 	bool found = false;
 	Node* temp = first;
@@ -232,7 +236,7 @@ bool CandidateList::searchCandidate(int ID, Node*& ptrToCandidate)
 	}
 
 	if (!found)
-		cerr << "=> ID not in the list.";
+		cerr << "    => ID not in the list.\n";
 
 	return found;
 }
