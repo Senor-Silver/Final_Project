@@ -1,7 +1,7 @@
 /*
 		OOPS
 		 Iacob, Marius (TTh 6:30)
-		 Catillio, Edgar (TTh 6:30)
+		 Castillo, Edgar (TTh 6:30)
 
 		 Sunday, May 3, 2020
 
@@ -19,11 +19,11 @@ class CharacterType
 {
 public:
 	// Default constructor
-	CharacterType();
+	CharacterType() : id(0) {};
 
 	// Overloaded constructor
-	CharacterType(const std::string& lastN, 
-					const std::string& firstN, int ID);
+	CharacterType(const std::string& firstN, 
+					const std::string& lastN, int ID);
 
 	// setCharacterInfo Function
 	void setCharacterInfo(const std::string& fName, 

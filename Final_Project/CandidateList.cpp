@@ -1,7 +1,7 @@
 /*
 		OOPS
 		 Iacob, Marius (TTh 6:30)
-		 Catillio, Edgar (TTh 6:30)
+		 Castillo, Edgar (TTh 6:30)
 
 		 Wednesday May 6, 2020
 

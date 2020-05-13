@@ -1,9 +1,9 @@
 /*
 		OOPS
 		 Iacob, Marius (TTh 6:30)
-		 Catillio, Edgar (TTh 6:30)
+		 Castillo, Edgar (TTh 6:30)
 
-		 Sunday, May 3, 2020
+		 Wednesday May 6, 2020
 
 		 CS A250
 		 Project 1 - Part A
@@ -15,12 +15,6 @@ using namespace std;
 
 // Implement all functions in the SAME order
 // as listed in the interface file.
-
-// Default constructor
-CharacterType::CharacterType()
-{
-	id = 0;
-}
 
 // Overloaded constructor
 CharacterType::CharacterType(const string& firstN, 

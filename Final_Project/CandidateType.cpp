@@ -1,12 +1,12 @@
 /*
-		TeamName
+		OOPS
 		 Iacob, Marius (TTh 6:30)
-		 Catillio, Edgar (TTh 6:30)
+		 Castillo, Edgar (TTh 6:30)
 
-		 Sunday, May 3, 2020
+		 Wednesday May 6, 2020
 
 		 CS A250
-		 Project 1 - Part A
+		 Project 1 - Part B
 */
 
 #include "CandidateType.h"
