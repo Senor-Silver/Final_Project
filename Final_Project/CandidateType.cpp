@@ -6,7 +6,7 @@
 		 Wednesday May 6, 2020
 
 		 CS A250
-		 Project 1 - Part B
+		 Project 1 - Part A
 */
 
 #include "CandidateType.h"
@@ -15,24 +15,28 @@ using namespace std;
 
 // Implement all functions in the SAME order
 // as listed in the interface file.
+
 // Default Constructor
 CandidateType::CandidateType()
 {
 	totalVotes = 0;
 	numOfKingdoms = NUM_OF_KINGDOMS;
-	kingdomVotes = new int[numOfKingdoms];
+	kingdomVotes = new int[numOfKingdoms] {0};
 }
 
 // Copy Constructor
 CandidateType::CandidateType(const CandidateType& otherType)
 {
+	// Gather member variable info via Inheritence
 	CharacterType::setCharacterInfo
 	(otherType.getLastName(), otherType.getFirstName(), otherType.getID());
 
+	// Update 'CandidateType' member variables
 	totalVotes = otherType.totalVotes;
 	numOfKingdoms = otherType.numOfKingdoms;
 	kingdomVotes = new int[numOfKingdoms];
 
+	// Loop to gather --kingdomVotes info for Copying
 	for (int i = 0; i < numOfKingdoms; ++i)
 		kingdomVotes[i] = otherType.kingdomVotes[i];
 }
@@ -40,7 +44,7 @@ CandidateType::CandidateType(const CandidateType& otherType)
 // Copy Assingment operator
 CandidateType& CandidateType::operator=(const CandidateType& rhs)
 {
-	if (&rhs != this) // Avoid Self-Assignment
+	if (&rhs != this) // Avoid Self-Assignment by checking addresses
 	{
 		CharacterType::setCharacterInfo
 		(rhs.getLastName(), rhs.getFirstName(), rhs.getID());
@@ -85,17 +89,16 @@ int CandidateType::getVotesByKingdom(int index) const
 // print functions
 void CandidateType::printCandidateInfo() const
 {
-	CharacterType::printID();
+	printID();
 	cout << "-";
-	CharacterType::printName();
-	cout << endl;
+	printName();
+	cout << "\n";
 }
 
 void CandidateType::printCandidateTotalVotes() const
 {
-	CharacterType::printName();
-	cout << "=> Total Votes (all kingdoms): "
-		<< totalVotes;
+	printName();
+	cout << "=> Total Votes (all kingdoms): " << totalVotes;
 }
 
 // Destructor

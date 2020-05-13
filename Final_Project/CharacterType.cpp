@@ -55,7 +55,8 @@ void CharacterType::printName() const
 }
 void CharacterType::printCharacterInfo() const 
 {
-	cout << "ID# " << id << firstName << lastName;
+	printID();
+	cout << " " << firstName << " " << lastName;
 }
 void CharacterType::printID() const
 {

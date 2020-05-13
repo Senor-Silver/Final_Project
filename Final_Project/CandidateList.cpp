@@ -16,13 +16,8 @@ using namespace std;
 
 // Function declarations
 // Same order as in class definition
-CandidateList::CandidateList()
-{
-	first = last = nullptr;
-	count = 0;
-}
 
-void CandidateList::addCandidate(CandidateType& candidate)
+void CandidateList::addCandidate(const CandidateType& candidate)
 {
 	// If the list is empty...
 	// Assign 'candidate' to --first & --last
@@ -71,20 +66,20 @@ int CandidateList::getWinner() const
 	return winnerID;
 }
 
-bool CandidateList::isEmpty()
+bool CandidateList::isEmpty() const
 {
 	// Use ternary operator...
 	return count == 0 ? true : false;
 }
 
 // Public Search function
-bool CandidateList::searchCandidate(int ID)
+bool CandidateList::searchCandidate(int ID) const
 {
 	Node* ptr2Candidate = nullptr;
 	return CandidateList::searchCandidate(ID, ptr2Candidate);
 }
 
-void CandidateList::printCandidateName(int ID)
+void CandidateList::printCandidateName(int ID) const
 {
 	Node* ptr2Candidate = nullptr;
 	if (CandidateList::searchCandidate(ID, ptr2Candidate))
@@ -93,7 +88,7 @@ void CandidateList::printCandidateName(int ID)
 	}
 }
 
-void CandidateList::printAllCandidates()
+void CandidateList::printAllCandidates() const
 {
 	if (this->isEmpty())
 		cerr << "List is empty.\n" << endl;
@@ -109,7 +104,7 @@ void CandidateList::printAllCandidates()
 	}
 }
 
-void CandidateList::printKingdomVotes(int ID, int kingdom)
+void CandidateList::printKingdomVotes(int ID, int kingdom) const
 {
 	Node* ptr2Candidate = nullptr;
 	if (CandidateList::searchCandidate(ID, ptr2Candidate))
@@ -122,7 +117,7 @@ void CandidateList::printKingdomVotes(int ID, int kingdom)
 		
 }
 
-void CandidateList::printCandidateTotalVotes(int ID) 
+void CandidateList::printCandidateTotalVotes(int ID) const
 {
 	Node* ptr2Candidate = nullptr;
 	if (CandidateList::searchCandidate(ID, ptr2Candidate))
@@ -132,7 +127,7 @@ void CandidateList::printCandidateTotalVotes(int ID)
 	}
 }
 
-void CandidateList::printFinalResults()
+void CandidateList::printFinalResults() const
 {
 	// Create a Map containing <--totalVotes, pair<--lastName, --firstName>>
 	// Map has a nested Pair for ease of access to Name
@@ -210,7 +205,7 @@ CandidateList::~CandidateList()
 }
 
 // Overloaded Private Search function
-bool CandidateList::searchCandidate(int ID, Node*& ptrToCandidate)
+bool CandidateList::searchCandidate(int ID, Node*& ptrToCandidate) const
 {
 	if (this->isEmpty())
 		cerr << "    => List is empty.\n" << endl;

@@ -39,39 +39,36 @@ class CandidateList
 {
 public:
 	// Default constructor
-	CandidateList();
+	CandidateList() : first(nullptr), last(nullptr), count(0) {};
 
 	// addCandidate
-	void addCandidate(CandidateType& candidate);
+	void addCandidate(const CandidateType& candidate);
 
 	// getWinner
 	int getWinner() const;
 
 	// isEmpty
 	// searchCandidate
-	bool isEmpty();
-	bool searchCandidate(int ID);
+	bool isEmpty() const;
+	bool searchCandidate(int ID) const;
 
 	// printCandidateName
 	// printAllCandidates
 	// printKingdomVotes
 	// printCandidateTotalVotes
-	// printFinalResults
-	void printCandidateName(int ID);
-	void printAllCandidates();
-	void printKingdomVotes(int ID, int kingdom);
-	void printCandidateTotalVotes(int ID);
-	void printFinalResults();
-	
-	// clearList
-	void clearList();
+	void printCandidateName(int ID) const;
+	void printAllCandidates() const;
+	void printKingdomVotes(int ID, int kingdom) const;
+	void printCandidateTotalVotes(int ID) const;
 
-	// Destructor
+	// Last Print and Destructors
+	void printFinalResults() const;
+	void clearList();
 	~CandidateList();
 
 private:
 	// searchCandidate
-	bool searchCandidate(int ID, Node*& ptrToCandidate);
+	bool searchCandidate(int ID, Node*& ptrToCandidate) const;
 	
 	Node *first; 	// pointer to the first candidate in the list
 	Node *last;		// pointer to last candidate in the list

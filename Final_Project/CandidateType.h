@@ -28,10 +28,8 @@ const std::string KINGDOMS[] = {
 class CandidateType : public CharacterType
 {
 public:
-	// Default constructor
+	// Constructors
 	CandidateType();
-
-	// Copy constructor
 	CandidateType(const CandidateType& otherType);
 
 	// Copy assignment operator
