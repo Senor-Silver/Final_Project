@@ -10,8 +10,8 @@
 */
 
 #include "CandidateList.h"
-#include <utility>
-#include <map>
+//#include <utility>
+//#include <map>
 using namespace std;
 
 // Function declarations
@@ -19,17 +19,15 @@ using namespace std;
 
 void CandidateList::addCandidate(const CandidateType& candidate)
 {
-	// If the list is empty...
-	// Assign 'candidate' to --first & --last
+	// If the list is empty..
 	if (this->isEmpty())
-		first = last = new Node(candidate, nullptr);
-	// Else, assing 'candidate' to --last->--link
-	else
+		first = last = new Node(candidate, nullptr); // Assign 'candidate' to --first & --last
+	else // Else,...
 	{
+		// Assing 'candidate' to --last->--link
 		last->setLink(new Node(candidate, nullptr));
 		last = last->getLink();
 	}
-
 	count++;
 }
 
@@ -42,28 +40,30 @@ int CandidateList::getWinner() const
 		cerr << "    => List is empty.\n" << endl;
 		return 0;
 	}
-		
-	// Use a Node*, 'temp' to traverse list
-	// Keep track of winner with 
-	Node* temp = first;
-	int winnerID = first->getCandidate().getID();
-	int winnerTtlVotes = first->getCandidate().getTotalVotes();
-	
-	// WHILE the next --link does not equal nullptr
-	while (temp->getLink() != nullptr)
+	else
 	{
-		// Update 'temp' to next --link
-		temp = temp->getLink();
+		// Use a Node*, 'temp' to traverse list
+		// Keep track of winner with 
+		Node* temp = first;
+		int winnerID = first->getCandidate().getID();
+		int winnerTtlVotes = first->getCandidate().getTotalVotes();
 
-		// Compare Total Votes of Candidates
-		if (winnerTtlVotes < temp->getCandidate().getTotalVotes())
+		// WHILE the next --link does not equal nullptr
+		while (temp->getLink() != nullptr)
 		{
-			winnerID = temp->getCandidate().getID();
-			winnerTtlVotes = temp->getCandidate().getTotalVotes();
+			// Update 'temp' to next --link
+			temp = temp->getLink();
+
+			// Compare Total Votes of Candidates
+			if (winnerTtlVotes < temp->getCandidate().getTotalVotes())
+			{
+				winnerID = temp->getCandidate().getID();
+				winnerTtlVotes = temp->getCandidate().getTotalVotes();
+			}
 		}
+		// Return ID of Winner
+		return winnerID;
 	}
-	// Return ID of Winner
-	return winnerID;
 }
 
 bool CandidateList::isEmpty() const
@@ -92,21 +92,24 @@ void CandidateList::printAllCandidates() const
 {
 	if (this->isEmpty())
 		cerr << "List is empty.\n" << endl;
-
-	Node* temp = first;
-
-	while (temp != nullptr)
+	else
 	{
-		temp->getCandidate().printID();
-		cout << " - " << temp->getCandidate().getLastName()
-			<< ", " << temp->getCandidate().getFirstName() << "\n";
-		temp = temp->getLink();
+		Node* temp = first;
+
+		while (temp != nullptr)
+		{
+			temp->getCandidate().printID();
+			cout << " - " << temp->getCandidate().getLastName()
+				<< ", " << temp->getCandidate().getFirstName() << "\n";
+			temp = temp->getLink();
+		}
 	}
 }
 
 void CandidateList::printKingdomVotes(int ID, int kingdom) const
 {
 	Node* ptr2Candidate = nullptr;
+
 	if (CandidateList::searchCandidate(ID, ptr2Candidate))
 	{
 		// Format output here
@@ -114,12 +117,12 @@ void CandidateList::printKingdomVotes(int ID, int kingdom) const
 			<< "*" << setw(3) << ptr2Candidate->getCandidate().getVotesByKingdom(kingdom)
 			<< "( => )" << KINGDOMS[kingdom] << "\n";
 	}
-		
 }
 
 void CandidateList::printCandidateTotalVotes(int ID) const
 {
 	Node* ptr2Candidate = nullptr;
+
 	if (CandidateList::searchCandidate(ID, ptr2Candidate))
 	{
 		cout << "    => Total votes: "
@@ -131,55 +134,61 @@ void CandidateList::printFinalResults() const
 {
 	// Create a Map containing <--totalVotes, pair<--lastName, --firstName>>
 	// Map has a nested Pair for ease of access to Name
-	map<int, pair<string, string>> candMap;
-	Node* temp = first;
-
-	while (temp != nullptr)
+	/*map<int, pair<string, string>> candMap; */
+	if (this->isEmpty())
+		cerr << "    Seems to have encountered an error\n";
+	else
 	{
-		// Creation of Map to gather info for output in Order
-		// Will have to create a reverseIterator() 
-		candMap.insert(make_pair(temp->getCandidate().getTotalVotes(),
-					make_pair(temp->getCandidate().getLastName(),
-						      temp->getCandidate().getFirstName())));
+		Node* temp = first;
 
-		temp = temp->getLink();
+		while (temp != nullptr)
+		{
+			// Creation of Map to gather info for output in Order
+			// Will have to create a reverseIterator() 
+			/*candMap.insert(make_pair(temp->getCandidate().getTotalVotes(),
+						make_pair(temp->getCandidate().getLastName(),
+								  temp->getCandidate().getFirstName())));*/
+
+			temp = temp->getLink();
+		}
+
+		// Print Top of Table Before Results
+		cout << right << setw(18) << setfill('*') << " FINAL"
+			<< left << setw(21) << " RESULTS ";
+
+		cout << left << setw(17) << setfill(' ') << "\n\nLAST"
+			<< setw(10) << "FIRST"
+			<< setw(5) << "TOTAL"
+			<< right << setw(8) << "POS\n";
+
+		cout << left << setw(15) << "NAME"
+			<< setw(10) << "NAME"
+			<< setw(5) << "VOTES"
+			<< right << setw(8) << "#\n"
+			<< setw(41) << setfill('_') << "_\n\n";
+
+		int candidatePOSition = 0;
+		map<int, pair<string, string>>::
+			const_reverse_iterator revIter = candMap.crbegin();
+
+		for (revIter; revIter != candMap.crend(); ++revIter)
+		{
+			candidatePOSition++;
+
+			// Use reverseIterator here
+			cout << left << setw(15) << setfill(' ')
+				<< revIter->second.first << setw(12)
+				<< revIter->second.second << setw(3)
+				<< revIter->first << right << setw(7)
+				<< candidatePOSition << "\n";
+
+			// Put dashes in between every 5 Candidates
+			if ((candidatePOSition > 4) && (!(candidatePOSition % 5)))
+				cout << right << setw(40) << setfill('-') << "-\n";
+		}
 	}
-	// Delete temp to free up space???
 
-	// Print Top of Table Before Results
-	cout << right << setw(18) << setfill('*') << " FINAL"
-		<< left << setw(21) << " RESULTS ";
-
-	cout << left << setw(17) << setfill(' ') << "\n\nLAST"
-		<< setw(10) << "FIRST"
-		<< setw(5) << "TOTAL"
-		<< right << setw(8) << "POS\n";
-
-	cout << left << setw(15) << "NAME"
-		<< setw(10) << "NAME"
-		<< setw(5) << "VOTES"
-		<< right << setw(8) << "#\n"
-		<< setw(41) << setfill('_') << "_\n\n";
-
-	int candidatePOSition = 0;
-	map<int, pair<string, string>>::
-		const_reverse_iterator revIter = candMap.crbegin();
-
-	for (revIter; revIter != candMap.crend(); ++revIter)
-	{
-		candidatePOSition++;
-		
-		// Use reverseIterator here
-		cout << left << setw(15) << setfill(' ') 
-			<< revIter->second.first << setw(12) 
-			<< revIter->second.second << setw(3) 
-			<< revIter->first << right << setw(7) 
-			<< candidatePOSition << "\n";
-
-		// Put dashes in between every 5 Candidates
-		if ((candidatePOSition > 4) && (!(candidatePOSition % 5)))
-			cout << right << setw(40) << setfill('-') << "-\n";
-	}
+	
 }
 
 // Destructor Methods
@@ -197,6 +206,7 @@ void CandidateList::clearList()
 	}
 
 	count = 0;
+	first = last = nullptr;
 }
 
 CandidateList::~CandidateList()
@@ -209,23 +219,24 @@ bool CandidateList::searchCandidate(int ID, Node*& ptrToCandidate) const
 {
 	if (this->isEmpty())
 		cerr << "    => List is empty.\n" << endl;
-	
-	bool found = false;
-	Node* temp = first;
-
-	while (!found && (temp->getLink() != nullptr))
+	else
 	{
-		if (temp->getCandidate().getID() == ID)
+		bool found = false;
+		Node* temp = first;
+
+		while (!found && (temp->getLink() != nullptr))
 		{
-			ptrToCandidate = temp;
-			found = true;
+			if (temp->getCandidate().getID() == ID)
+			{
+				ptrToCandidate = temp;
+				found = true;
+			}
+			else
+				temp = temp->getLink();
 		}
-		else
-			temp = temp->getLink();
+		if (!found)
+			cerr << "    => ID not in the list.\n";
+
+		return found;
 	}
-
-	if (!found)
-		cerr << "    => ID not in the list.\n";
-
-	return found;
 }
