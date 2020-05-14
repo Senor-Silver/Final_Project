@@ -10,8 +10,8 @@
 */
 
 #include "CandidateList.h"
-//#include <utility>
-//#include <map>
+#include <utility>
+#include <map>
 using namespace std;
 
 // Function declarations
@@ -134,7 +134,8 @@ void CandidateList::printFinalResults() const
 {
 	// Create a Map containing <--totalVotes, pair<--lastName, --firstName>>
 	// Map has a nested Pair for ease of access to Name
-	/*map<int, pair<string, string>> candMap; */
+	map<int, pair<string, string>> candMap; 
+
 	if (this->isEmpty())
 		cerr << "    Seems to have encountered an error\n";
 	else
@@ -145,9 +146,9 @@ void CandidateList::printFinalResults() const
 		{
 			// Creation of Map to gather info for output in Order
 			// Will have to create a reverseIterator() 
-			/*candMap.insert(make_pair(temp->getCandidate().getTotalVotes(),
+			candMap.insert(make_pair(temp->getCandidate().getTotalVotes(),
 						make_pair(temp->getCandidate().getLastName(),
-								  temp->getCandidate().getFirstName())));*/
+								  temp->getCandidate().getFirstName())));
 
 			temp = temp->getLink();
 		}
