@@ -10,8 +10,7 @@
 */
 
 #include "CandidateList.h"
-#include <utility>
-#include <map>
+
 using namespace std;
 
 // Function declarations
@@ -73,16 +72,16 @@ bool CandidateList::isEmpty() const
 }
 
 // Public Search function
-bool CandidateList::searchCandidate(int id) const
+bool CandidateList::searchCandidate(int iD) const
 {
 	Node* ptr2Candidate = nullptr;
-	return searchCandidate(id, ptr2Candidate);
+	return searchCandidate(iD, ptr2Candidate);
 }
 
-void CandidateList::printCandidateName(int id) const
+void CandidateList::printCandidateName(int iD) const
 {
 	Node* ptr2Candidate = nullptr;
-	if (searchCandidate(id, ptr2Candidate))
+	if (searchCandidate(iD, ptr2Candidate))
 	{
 		ptr2Candidate->getCandidate().printName();
 	}
@@ -106,11 +105,11 @@ void CandidateList::printAllCandidates() const
 	}
 }
 
-void CandidateList::printKingdomVotes(int id, int kingdom) const
+void CandidateList::printKingdomVotes(int iD, int kingdom) const
 {
 	Node* ptr2Candidate = nullptr;
 
-	if (CandidateList::searchCandidate(id, ptr2Candidate))
+	if (CandidateList::searchCandidate(iD, ptr2Candidate))
 	{
 		// Format output here
 		cout << right << setw(5) << setfill(' ') 
@@ -119,11 +118,11 @@ void CandidateList::printKingdomVotes(int id, int kingdom) const
 	}
 }
 
-void CandidateList::printCandidateTotalVotes(int id) const
+void CandidateList::printCandidateTotalVotes(int iD) const
 {
 	Node* ptr2Candidate = nullptr;
 
-	if (searchCandidate(id, ptr2Candidate))
+	if (searchCandidate(iD, ptr2Candidate))
 	{
 		cout << "    => Total votes: "
 			<< ptr2Candidate->getCandidate().getTotalVotes() << endl;
@@ -185,6 +184,7 @@ void CandidateList::printFinalResults() const
 			//const_reverse_iterator revIter = candMap.crbegin();
 
 		//for (revIter; revIter != candMap.crend(); ++revIter)
+		int nextH = 0;
 
 		// Loop to print out Final results;
 		for (int j = 1; j <= count; ++j)
@@ -203,11 +203,14 @@ void CandidateList::printFinalResults() const
 			// Loop to find nextHigh to print
 			while (nextH != highest - 1)
 			{
+				nextH = traverse->getCandidate().getTotalVotes();
+
 				if (nextH < highest && nextH > highest)
 				{
 					highest = nextH;
-					high = nextH;
+					high = traverse;
 				}	
+				traverse = traverse->getLink();
 			}
 		}
 	}
@@ -237,7 +240,7 @@ CandidateList::~CandidateList()
 }
 
 // Overloaded Private Search function
-bool CandidateList::searchCandidate(int ID, Node*& ptrToCandidate) const
+bool CandidateList::searchCandidate(int iD, Node*& ptrToCandidate) const
 {
 	if (!count)
 		cerr << "    => List is empty.\n" << endl;
@@ -248,7 +251,7 @@ bool CandidateList::searchCandidate(int ID, Node*& ptrToCandidate) const
 
 		while (!found && (temp->getLink() != nullptr))
 		{
-			if (temp->getCandidate().getID() == ID)
+			if (temp->getCandidate().getID() == iD)
 			{
 				ptrToCandidate = temp;
 				found = true;

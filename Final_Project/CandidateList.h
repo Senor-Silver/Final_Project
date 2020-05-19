@@ -50,16 +50,16 @@ public:
 	// isEmpty
 	// searchCandidate
 	bool isEmpty() const;
-	bool searchCandidate(int id) const;
+	bool searchCandidate(int iD) const;
 
 	// printCandidateName
 	// printAllCandidates
 	// printKingdomVotes
 	// printCandidateTotalVotes
-	void printCandidateName(int id) const;
+	void printCandidateName(int iD) const;
 	void printAllCandidates() const;
-	void printKingdomVotes(int id, int kingdom) const;
-	void printCandidateTotalVotes(int id) const;
+	void printKingdomVotes(int iD, int kingdom) const;
+	void printCandidateTotalVotes(int iD) const;
 	void printFinalResults() const;
 
 	// Destructors
@@ -68,7 +68,7 @@ public:
 
 private:
 	// searchCandidate
-	bool searchCandidate(int ID, Node*& ptrToCandidate) const;
+	bool searchCandidate(int iD, Node*& ptrToCandidate) const;
 	
 	Node *first; 	// pointer to the first candidate in the list
 	Node *last;		// pointer to last candidate in the list

@@ -23,11 +23,11 @@ public:
 
 	// Overloaded constructor
 	CharacterType(const std::string& firstN, 
-					const std::string& lastN, int ID);
+					const std::string& lastN, int iD);
 
 	// setCharacterInfo Function
 	void setCharacterInfo(const std::string& fName, 
-							const std::string& lName, int ID);
+							const std::string& lName, int iD);
 
 	// Getters Functions
 	std::string getFirstName() const;
