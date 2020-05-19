@@ -131,38 +131,27 @@ void CandidateList::printCandidateTotalVotes(int iD) const
 
 void CandidateList::printFinalResults() const
 {
-	// Create a Map containing <--totalVotes, pair<--lastName, --firstName>>
-	// Map has a nested Pair for ease of access to Name
-	//map<int, pair<string, string>> candMap; 
-
 	if (!count)
 		cerr << "    List is empty.\n";
 	else
 	{
-		Node* high = first;
-		Node* traverse = first->getLink();
+		Node* temp = first->getLink();
+		Node* temp2 = nullptr;
 		int highest = first->getCandidate().getTotalVotes();
 
 		// Find Candidate with Highest Votes
-		for (int i = 1; i < count; ++i)
+		while (temp != nullptr)
 		{
-			if (highest < traverse->getCandidate().getTotalVotes())
+			if (highest < temp->getCandidate().getTotalVotes())
 			{
-				high = traverse;
-				highest = traverse->getCandidate().getTotalVotes();
+				highest = temp->getCandidate().getTotalVotes();
+				temp2 = temp;
 			}
 
-			traverse = traverse->getLink();
-
-			// Creation of Map to gather info for output in Order
-			// Will have to create a reverseIterator() 
-			//candMap.insert(make_pair(temp->getCandidate().getTotalVotes(),
-						//make_pair(temp->getCandidate().getLastName(),
-								  //temp->getCandidate().getFirstName())));
-			//temp = temp->getLink();
+			temp = temp->getLink();
 		}
-		// Reset --traverse for resuse;
-		traverse = first;
+		// Reset --temp for re-use;
+		temp = first;
 
 		// Print Top of Table Before Results
 		cout << right << setw(18) << setfill('*') << " FINAL"
@@ -179,39 +168,34 @@ void CandidateList::printFinalResults() const
 			<< right << setw(8) << "#\n"
 			<< setw(41) << setfill('_') << "_\n\n";
 
-		//int candidatePOSition = 0;
-		//map<int, pair<string, string>>::
-			//const_reverse_iterator revIter = candMap.crbegin();
-
-		//for (revIter; revIter != candMap.crend(); ++revIter)
-		int nextH = 0;
-
 		// Loop to print out Final results;
-		for (int j = 1; j <= count; ++j)
+		for (int i = 1; i <= count; ++i)
 		{
 			// Print results; 
 			cout << left << setw(15) << setfill(' ')
-				<< high->getCandidate().getLastName() << setw(12)
-				<< high->getCandidate().getFirstName() << setw(3)
-				<< high->getCandidate().getTotalVotes()
-				<< right << setw(7) << j << "\n";
+				<< temp2->getCandidate().getLastName() << setw(12)
+				<< temp2->getCandidate().getFirstName() << setw(3)
+				<< temp2->getCandidate().getTotalVotes() << right 
+				<< setw(7) << i << "\n";
 
 			// Put dashes in between every 5 Candidates
-			if ((j > 4) && (!(j % 5)))
+			if ((i > 4) && (!(i % 5)))
 				cout << right << setw(40) << setfill('-') << "-\n";
 
 			// Loop to find nextHigh to print
-			while (nextH != highest - 1)
+			while (temp != nullptr && 
+				temp->getCandidate().getTotalVotes() != highest - 1)
 			{
-				nextH = traverse->getCandidate().getTotalVotes();
-
-				if (nextH < highest && nextH > highest)
+				if (temp->getCandidate().getTotalVotes() > highest)
 				{
-					highest = nextH;
-					high = traverse;
+					temp2 = temp;
+					highest = temp2->getCandidate().getTotalVotes();
 				}	
-				traverse = traverse->getLink();
+
+				temp = temp->getLink();
 			}
+
+			temp = first;
 		}
 	}
 }
@@ -259,9 +243,11 @@ bool CandidateList::searchCandidate(int iD, Node*& ptrToCandidate) const
 			else
 				temp = temp->getLink();
 		}
+
 		if (!found)
 			cout << "    => ID not in the list.\n";
 
 		return found;
 	}
+	
 }
