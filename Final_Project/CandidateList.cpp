@@ -227,7 +227,10 @@ CandidateList::~CandidateList()
 bool CandidateList::searchCandidate(int iD, Node*& ptrToCandidate) const
 {
 	if (!count)
+	{
 		cerr << "    => List is empty.\n" << endl;
+		return false;
+	}
 	else
 	{
 		bool found = false;
@@ -245,9 +248,11 @@ bool CandidateList::searchCandidate(int iD, Node*& ptrToCandidate) const
 		}
 
 		if (!found)
+		{
 			cout << "    => ID not in the list.\n";
+			return found;
+		}
 
 		return found;
 	}
-	
 }
