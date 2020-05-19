@@ -136,8 +136,8 @@ void CandidateList::printFinalResults() const
 	else
 	{
 		Node* temp = first->getLink();
-		Node* temp2 = nullptr;
 		int highest = first->getCandidate().getTotalVotes();
+		std::string lName, fName;
 
 		// Find Candidate with Highest Votes
 		while (temp != nullptr)
@@ -145,7 +145,8 @@ void CandidateList::printFinalResults() const
 			if (highest < temp->getCandidate().getTotalVotes())
 			{
 				highest = temp->getCandidate().getTotalVotes();
-				temp2 = temp;
+				lName = temp->getCandidate().getLastName();
+				fName = temp->getCandidate().getFirstName();
 			}
 
 			temp = temp->getLink();
@@ -168,33 +169,40 @@ void CandidateList::printFinalResults() const
 			<< right << setw(8) << "#\n"
 			<< setw(41) << setfill('_') << "_\n\n";
 
+		int printNext = highest;
+		highest = first->getCandidate().getTotalVotes();
+
 		// Loop to print out Final results;
 		for (int i = 1; i <= count; ++i)
 		{
 			// Print results; 
 			cout << left << setw(15) << setfill(' ')
-				<< temp2->getCandidate().getLastName() << setw(12)
-				<< temp2->getCandidate().getFirstName() << setw(3)
-				<< temp2->getCandidate().getTotalVotes() << right 
-				<< setw(7) << i << "\n";
+				<< lName << setw(12)
+				<< fName << setw(3)
+				<< printNext << right << setw(7) << i << "\n";
 
 			// Put dashes in between every 5 Candidates
 			if ((i > 4) && (!(i % 5)))
 				cout << right << setw(40) << setfill('-') << "-\n";
 
-			// Loop to find nextHigh to print
+			// Loop to find next highest to print
 			while (temp != nullptr && 
-				temp->getCandidate().getTotalVotes() != highest - 1)
+				temp->getCandidate().getTotalVotes() != printNext - 1)
 			{
-				if (temp->getCandidate().getTotalVotes() > highest)
+				if (printNext > temp->getCandidate().getTotalVotes())
 				{
-					temp2 = temp;
-					highest = temp2->getCandidate().getTotalVotes();
+					if (temp->getCandidate().getTotalVotes() > highest)
+					{
+						lName = temp->getCandidate().getLastName();
+						fName = temp->getCandidate().getFirstName();
+						printNext = temp->getCandidate().getTotalVotes();
+					}
 				}	
 
 				temp = temp->getLink();
 			}
 
+			// Reset --temp
 			temp = first;
 		}
 	}
