@@ -1,12 +1,12 @@
 /*
 		OOPS
 		 Iacob, Marius (TTh 6:30)
-		 Catillio, Edgar (TTh 6:30)
+		 Castillo, Edgar (TTh 6:30)
 
-		 Wednesday May 6, 2020
+		 Monday May 18, 2020
 
 		 CS A250
-		 Project 1 - Part C
+		 Project 1 - Revised
 */
 
 #include "InputHandler.h"

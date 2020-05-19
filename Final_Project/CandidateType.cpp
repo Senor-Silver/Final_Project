@@ -3,10 +3,10 @@
 		 Iacob, Marius (TTh 6:30)
 		 Castillo, Edgar (TTh 6:30)
 
-		 Wednesday May 6, 2020
+		 Monday May 18, 2020
 
 		 CS A250
-		 Project 1 - Part A
+		 Project 1 - Revised
 */
 
 #include "CandidateType.h"
@@ -28,8 +28,8 @@ CandidateType::CandidateType()
 CandidateType::CandidateType(const CandidateType& otherType)
 {
 	// Gather member variable info via Inheritence
-	CharacterType::setCharacterInfo
-	(otherType.getLastName(), otherType.getFirstName(), otherType.getID());
+	setCharacterInfo(otherType.getFirstName(),
+		otherType.getLastName(), otherType.getID());
 
 	// Update 'CandidateType' member variables
 	totalVotes = otherType.totalVotes;
@@ -46,8 +46,8 @@ CandidateType& CandidateType::operator=(const CandidateType& rhs)
 {
 	if (&rhs != this) // Avoid Self-Assignment by checking addresses
 	{
-		CharacterType::setCharacterInfo
-		(rhs.getLastName(), rhs.getFirstName(), rhs.getID());
+		setCharacterInfo(rhs.getFirstName(),
+			rhs.getLastName(), rhs.getID());
 
 		totalVotes = rhs.totalVotes;
 

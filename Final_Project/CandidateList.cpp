@@ -3,10 +3,10 @@
 		 Iacob, Marius (TTh 6:30)
 		 Castillo, Edgar (TTh 6:30)
 
-		 Wednesday May 6, 2020
+		 Monday May 18, 2020
 
 		 CS A250
-		 Project 1 - Part B
+		 Project 1 - Revised
 */
 
 #include "CandidateList.h"
@@ -20,7 +20,7 @@ using namespace std;
 void CandidateList::addCandidate(const CandidateType& candidate)
 {
 	// If the list is empty..
-	if (this->isEmpty())
+	if (!count)
 		first = last = new Node(candidate, nullptr); // Assign 'candidate' to --first & --last
 	else // Else,...
 	{
@@ -73,16 +73,16 @@ bool CandidateList::isEmpty() const
 }
 
 // Public Search function
-bool CandidateList::searchCandidate(int ID) const
+bool CandidateList::searchCandidate(int id) const
 {
 	Node* ptr2Candidate = nullptr;
-	return CandidateList::searchCandidate(ID, ptr2Candidate);
+	return searchCandidate(id, ptr2Candidate);
 }
 
-void CandidateList::printCandidateName(int ID) const
+void CandidateList::printCandidateName(int id) const
 {
 	Node* ptr2Candidate = nullptr;
-	if (CandidateList::searchCandidate(ID, ptr2Candidate))
+	if (searchCandidate(id, ptr2Candidate))
 	{
 		ptr2Candidate->getCandidate().printName();
 	}
@@ -90,7 +90,7 @@ void CandidateList::printCandidateName(int ID) const
 
 void CandidateList::printAllCandidates() const
 {
-	if (this->isEmpty())
+	if (!count)
 		cerr << "List is empty.\n" << endl;
 	else
 	{
@@ -106,11 +106,11 @@ void CandidateList::printAllCandidates() const
 	}
 }
 
-void CandidateList::printKingdomVotes(int ID, int kingdom) const
+void CandidateList::printKingdomVotes(int id, int kingdom) const
 {
 	Node* ptr2Candidate = nullptr;
 
-	if (CandidateList::searchCandidate(ID, ptr2Candidate))
+	if (CandidateList::searchCandidate(id, ptr2Candidate))
 	{
 		// Format output here
 		cout << right << setw(5) << setfill(' ') 
@@ -119,11 +119,11 @@ void CandidateList::printKingdomVotes(int ID, int kingdom) const
 	}
 }
 
-void CandidateList::printCandidateTotalVotes(int ID) const
+void CandidateList::printCandidateTotalVotes(int id) const
 {
 	Node* ptr2Candidate = nullptr;
 
-	if (CandidateList::searchCandidate(ID, ptr2Candidate))
+	if (searchCandidate(id, ptr2Candidate))
 	{
 		cout << "    => Total votes: "
 			<< ptr2Candidate->getCandidate().getTotalVotes() << endl;
@@ -134,24 +134,36 @@ void CandidateList::printFinalResults() const
 {
 	// Create a Map containing <--totalVotes, pair<--lastName, --firstName>>
 	// Map has a nested Pair for ease of access to Name
-	map<int, pair<string, string>> candMap; 
+	//map<int, pair<string, string>> candMap; 
 
-	if (this->isEmpty())
-		cerr << "    Seems to have encountered an error\n";
+	if (!count)
+		cerr << "    List is empty.\n";
 	else
 	{
-		Node* temp = first;
+		Node* high = first;
+		Node* traverse = first->getLink();
+		int highest = first->getCandidate().getTotalVotes();
 
-		while (temp != nullptr)
+		// Find Candidate with Highest Votes
+		for (int i = 1; i < count; ++i)
 		{
+			if (highest < traverse->getCandidate().getTotalVotes())
+			{
+				high = traverse;
+				highest = traverse->getCandidate().getTotalVotes();
+			}
+
+			traverse = traverse->getLink();
+
 			// Creation of Map to gather info for output in Order
 			// Will have to create a reverseIterator() 
-			candMap.insert(make_pair(temp->getCandidate().getTotalVotes(),
-						make_pair(temp->getCandidate().getLastName(),
-								  temp->getCandidate().getFirstName())));
-
-			temp = temp->getLink();
+			//candMap.insert(make_pair(temp->getCandidate().getTotalVotes(),
+						//make_pair(temp->getCandidate().getLastName(),
+								  //temp->getCandidate().getFirstName())));
+			//temp = temp->getLink();
 		}
+		// Reset --traverse for resuse;
+		traverse = first;
 
 		// Print Top of Table Before Results
 		cout << right << setw(18) << setfill('*') << " FINAL"
@@ -168,28 +180,37 @@ void CandidateList::printFinalResults() const
 			<< right << setw(8) << "#\n"
 			<< setw(41) << setfill('_') << "_\n\n";
 
-		int candidatePOSition = 0;
-		map<int, pair<string, string>>::
-			const_reverse_iterator revIter = candMap.crbegin();
+		//int candidatePOSition = 0;
+		//map<int, pair<string, string>>::
+			//const_reverse_iterator revIter = candMap.crbegin();
 
-		for (revIter; revIter != candMap.crend(); ++revIter)
+		//for (revIter; revIter != candMap.crend(); ++revIter)
+
+		// Loop to print out Final results;
+		for (int j = 1; j <= count; ++j)
 		{
-			candidatePOSition++;
-
-			// Use reverseIterator here
+			// Print results; 
 			cout << left << setw(15) << setfill(' ')
-				<< revIter->second.first << setw(12)
-				<< revIter->second.second << setw(3)
-				<< revIter->first << right << setw(7)
-				<< candidatePOSition << "\n";
+				<< high->getCandidate().getLastName() << setw(12)
+				<< high->getCandidate().getFirstName() << setw(3)
+				<< high->getCandidate().getTotalVotes()
+				<< right << setw(7) << j << "\n";
 
 			// Put dashes in between every 5 Candidates
-			if ((candidatePOSition > 4) && (!(candidatePOSition % 5)))
+			if ((j > 4) && (!(j % 5)))
 				cout << right << setw(40) << setfill('-') << "-\n";
+
+			// Loop to find nextHigh to print
+			while (nextH != highest - 1)
+			{
+				if (nextH < highest && nextH > highest)
+				{
+					highest = nextH;
+					high = nextH;
+				}	
+			}
 		}
 	}
-
-	
 }
 
 // Destructor Methods
@@ -218,7 +239,7 @@ CandidateList::~CandidateList()
 // Overloaded Private Search function
 bool CandidateList::searchCandidate(int ID, Node*& ptrToCandidate) const
 {
-	if (this->isEmpty())
+	if (!count)
 		cerr << "    => List is empty.\n" << endl;
 	else
 	{
@@ -236,7 +257,7 @@ bool CandidateList::searchCandidate(int ID, Node*& ptrToCandidate) const
 				temp = temp->getLink();
 		}
 		if (!found)
-			cerr << "    => ID not in the list.\n";
+			cout << "    => ID not in the list.\n";
 
 		return found;
 	}

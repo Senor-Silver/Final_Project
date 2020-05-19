@@ -3,10 +3,10 @@
 		 Iacob, Marius (TTh 6:30)
 		 Castillo, Edgar (TTh 6:30)
 
-		 Sunday, May 3, 2020
+		 Monday May 18, 2020
 
 		 CS A250
-		 Project 1 - Part B
+		 Project 1 - Revised
 */
 
 #ifndef CANDIDATELIST_H
@@ -50,19 +50,19 @@ public:
 	// isEmpty
 	// searchCandidate
 	bool isEmpty() const;
-	bool searchCandidate(int ID) const;
+	bool searchCandidate(int id) const;
 
 	// printCandidateName
 	// printAllCandidates
 	// printKingdomVotes
 	// printCandidateTotalVotes
-	void printCandidateName(int ID) const;
+	void printCandidateName(int id) const;
 	void printAllCandidates() const;
-	void printKingdomVotes(int ID, int kingdom) const;
-	void printCandidateTotalVotes(int ID) const;
-
-	// Last Print and Destructors
+	void printKingdomVotes(int id, int kingdom) const;
+	void printCandidateTotalVotes(int id) const;
 	void printFinalResults() const;
+
+	// Destructors
 	void clearList();
 	~CandidateList();
 
